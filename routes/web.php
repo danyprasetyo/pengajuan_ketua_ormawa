@@ -12,6 +12,9 @@ use App\Http\Controllers\Admin\OrmawaController;
 use App\Http\Controllers\Admin\BuatAkunController;
 use App\Http\Controllers\User\PengajuanController;
 use App\Http\Controllers\Admin\KelolaPengajuanController;
+use App\Http\Controllers\Admin\HistoriPengajuanController;
+use App\Http\Controllers\Admin\PeriodeController;
+use App\Http\Controllers\Admin\PersyaratanPendaftaranController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +28,7 @@ use App\Http\Controllers\Admin\KelolaPengajuanController;
 */
 
 Route::get('/', function () {
-    return view('welcome')->name('landing');
+    return view('welcome');
 });
 Route::middleware('revalidate')->group(function () {
     Route::middleware('guest')->group(function () {
@@ -33,10 +36,10 @@ Route::middleware('revalidate')->group(function () {
             Route::get('/login', 'login')->name('login');
             Route::post('/authenticate', 'authenticate')->name('authenticate');
         });
-        // Route::controller(RegisterController::class)->group(function () {
-        //     Route::get('/register', 'register')->name('register');
-        //     Route::post('/registration', 'registration')->name('registration');
-        // });
+        Route::controller(RegisterController::class)->group(function () {
+            Route::get('/register', 'register')->name('register');
+            Route::post('/registration', 'registration')->name('registration');
+        });
         Route::controller(ForgotPasswordController::class)->group(function () {
             Route::get('/forgot-password', 'forgotPassword')->name('forgot_password');
             Route::post('/forgotPasswordProcess', 'forgotPasswordProses')->name('forgot_password_proses');
@@ -56,8 +59,15 @@ Route::middleware('revalidate')->group(function () {
                     Route::get('', 'index')->name('');
                 });
                 Route::middleware('admin')->group(function () {
+                    Route::controller(PeriodeController::class)->group(function () {
+                        Route::get('/periode', 'index')->name('periode.index');
+                        Route::post('/periode', 'store')->name('periode.store');
+                        Route::patch('/periode/{id}', 'update')->name('periode.update');
+                        Route::get('/periode/{id}', 'show')->name('periode.show');
+                    });
                     Route::resource('buat_akun', BuatAkunController::class);
                     Route::resource('ormawa', OrmawaController::class)->only('index', 'show');
+                    Route::resource('persyaratan', PersyaratanPendaftaranController::class)->only('index', 'store', 'destroy');
                     Route::controller(KelolaPengajuanController::class)->group(function () {
                         Route::get('/pengajuan/pending', 'pending')->name('pengajuan.pending');
                         Route::get('/pengajuan/ditolak', 'ditolak')->name('pengajuan.ditolak');
@@ -65,8 +75,11 @@ Route::middleware('revalidate')->group(function () {
                         Route::patch('/pengajuan/konfirmasi', 'konfirmasi')->name('pengajuan.konfirmasi');
                         Route::get('/pengajuan/{id}', 'show')->name('pengajuan.show');
                     });
+                    Route::controller(HistoriPengajuanController::class)->group(function () {
+                        Route::get('/pengajuan/pending', 'pending')->name('pengajuan.pending');
+                    });
                 });
-                Route::middleware('user')->group(function () {
+                Route::middleware(['user', 'akun_aktif'])->group(function () {
                     Route::resource('pengajuan', PengajuanController::class)->only('index','store','edit','update');
                 });
             });

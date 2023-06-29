@@ -44,7 +44,7 @@ class BuatAkunController extends Controller
             'email' => 'required|email|unique:users,email',
         ]);
         $data = $request->all();
-        $data['password'] = bcrypt('gbghfd65#2w45'.$request->password.'sdghgh^$^');
+        $data['password'] = bcrypt('gbghfd65#2w45' . $request->password . 'sdghgh^$^');
         try {
             $data['role_id'] = 2;
             User::create($data);
@@ -84,7 +84,46 @@ class BuatAkunController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try {
+            $status = $request->status_aktif;
+            User::where('id', $id)->update([
+                'status_aktif' => $status
+            ]);
+            $message = $status == 1 ? 'Berhasil mengaktifkan akun' : 'Berhasil menonaktifkan akun';
+            $notification = [
+                'message' => $message,
+                'alert-type' => 'success',
+            ];
+            return redirect()
+                ->back()
+                ->with($notification);
+        } catch (\Throwable $th) {
+            return redirect()
+                ->back()
+                ->withErrors($validate)
+                ->withInput();
+        }
+        // $validate = $request->validate([
+        //     'username' => 'required',
+        //     'email' => 'required',
+        // ]);
+        // $data = $request->all();
+        // $data['password'] = bcrypt('gbghfd65#2w45'.$request->password.'sdghgh^$^');
+        // try {
+        //     User::where('id', $id)->update($data);
+        //     $notification = [
+        //         'message' => 'Berhasil Memperbarui Akun',
+        //         'alert-type' => 'success',
+        //     ];
+        //     return redirect()
+        //         ->back()
+        //         ->with($notification);
+        // } catch (\Throwable $th) {
+        //     return redirect()
+        //         ->back()
+        //         ->withErrors($validate)
+        //         ->withInput();
+        // }
     }
 
     /**
@@ -92,6 +131,20 @@ class BuatAkunController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            User::where('id', $id)->delete();
+            $notification = [
+                'message' => 'Berhasil Memperbarui Akun',
+                'alert-type' => 'success',
+            ];
+            return redirect()
+                ->back()
+                ->with($notification);
+        } catch (\Throwable $th) {
+            return redirect()
+                ->back()
+                ->withErrors($th->getMessage())
+                ->withInput();
+        }
     }
 }

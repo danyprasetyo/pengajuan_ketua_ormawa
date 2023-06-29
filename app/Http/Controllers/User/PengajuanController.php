@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Auth;
 use App\Models\Ormawa;
 use Storage;
+use App\Models\Periode;
 
 class PengajuanController extends Controller
 {
@@ -19,6 +20,7 @@ class PengajuanController extends Controller
     public function index()
     {
         $data['pengajuan'] = Pengajuan::where('user_id', Auth::user()->id)->first();
+        $data['periode'] = Periode::where('status_pembukaan', 1)->first();
         $data['ormawas'] = Ormawa::all();
         return view('user.pengajuan.index')->with($data);
     }
@@ -54,8 +56,8 @@ class PengajuanController extends Controller
             $photo->storeAs('public/photo_mhs/', $photoFilename);
 
             $extSertifikat = $sertifikat->extension();
-            $sertifikatFilename = 'sertifikat_' . $request->nama_mahasiswa . '_' . Carbon::now() . '.' . $extSertifikat;
-            $sertifikat->storeAs('public/sertifikat_mhs/', $sertifikatFilename);
+            $sertifikatFilename = 'lampiran_' . $request->nama_mahasiswa . '_' . Carbon::now() . '.' . $extSertifikat;
+            $sertifikat->storeAs('public/lampiran_mhs/', $sertifikatFilename);
 
             $data = $request->all();
             $data['sertifikat'] = $sertifikatFilename;

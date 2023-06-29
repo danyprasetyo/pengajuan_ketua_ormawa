@@ -1,15 +1,15 @@
 @extends('layouts.dashboard.master')
 @section('pageTitle')
-    Data Akun
+    Kelola Akun Pendaftar
 @stop
 @section('pageName')
-    Data Akun
+    Kelola Akun Pendaftar
 @stop
 @section('pageLink')
-    {{route('dashboard.buat_akun.index')}}
+    {{ route('dashboard.buat_akun.index') }}
 @stop
 @section('pageNow')
-    Akun
+    Akun Pendaftar
 @stop
 @section('content')
     <!-- Row -->
@@ -18,12 +18,13 @@
         <div class="col-lg-12">
             <div class="card mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <button type="button" onclick="clearInput('formBuatAkun','Tambah Akun','dashboard/buat_akun')" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalBuatAkun">
+                    {{-- <button type="button" onclick="clearInput('formBuatAkun','Tambah Akun','dashboard/buat_akun')"
+                        class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalBuatAkun">
                         Tambah
-                    </button>
-                    <a href="{{url()->previous()}}" class="btn btn-primary">
+                    </button> --}}
+                    <a href="{{ url()->previous() }}" class="btn btn-primary">
                         Kembali
-                    </a >
+                    </a>
                 </div>
 
                 <div class="table-responsive p-3">
@@ -32,6 +33,7 @@
                             <th>No</th>
                             <th>Username</th>
                             <th>Email</th>
+                            <th>Status</th>
                             <th>Aksi</th>
                         </thead>
                         <tbody>
@@ -39,8 +41,27 @@
                                 <tr>
                                     <td>{{ $no + 1 }}</td>
                                     <td>{{ $user->username }}</td>
-                                    <td>{{$user->email}}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td>{!! $user->status_aktif == 1
+                                        ? '<p class="badge bg-success">Aktif</p>'
+                                        : '<p class="badge bg-danger">Nonaktif</p>' !!}
+                                    </td>
                                     <td>
+                                        <form action="{{ route('dashboard.buat_akun.update', $user->id) }}" method="post">
+                                            @method('patch')
+                                            @csrf
+                                            @if ($user->status_aktif == 1)
+                                                <input type="hidden" value="0" name="status_aktif">
+                                                <button type="button" onclick="formConfirmation(`Nonaktifkan akun {{$user->username}}?`)"
+                                                    class="btn btn-sm btn-danger">Nonaktifkan</button>
+                                            @else
+                                                <input type="hidden" value="1" name="status_aktif">
+                                                <button type="button" onclick="formConfirmation(`Aktifkan akun {{$user->username}}?`)"
+                                                    class="btn btn-sm btn-success">Aktifkan</button>
+                                            @endif
+                                        </form>
+                                    </td>
+                                    {{-- <td>
                                         <form action="{{ route('dashboard.buat_akun.destroy', $user->id) }}"
                                             id="formDeleteUser" method="post">
                                             @csrf
@@ -54,7 +75,7 @@
                                             <button type="button" class="btn btn-danger"
                                                 onclick="formConfirmation('Hapus Data {{ $user->nama_user }}')">Hapus</button>
                                         </form>
-                                    </td>
+                                    </td> --}}
                                 </tr>
                             @endforeach
                         </tbody>
@@ -63,7 +84,7 @@
             </div>
         </div>
     </div>
-@include('admin.buat_akun.modal_buat_akun')
+    @include('admin.buat_akun.modal_buat_akun')
 @stop
 @push('js')
     <script>
@@ -83,7 +104,7 @@
                         `@method('put')`
                     );
                     document.getElementById('formBuatAkun').action =
-                    `{{ url('dashboard/buat_akun/${res.id}') }}`;
+                        `{{ url('dashboard/buat_akun/${res.id}') }}`;
                     $(idModal).modal('show');
                 }
             });

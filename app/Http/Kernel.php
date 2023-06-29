@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
         'revalidate' => \App\Http\Middleware\Revalidate::class,
         'admin' => \App\Http\Middleware\Admin::class,
         'user' => \App\Http\Middleware\User::class,
+        'akun_aktif' => \App\Http\Middleware\AkunAktif::class,
     ];
 }
