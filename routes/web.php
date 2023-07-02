@@ -25,7 +25,7 @@ use App\Http\Controllers\Admin\KelolaPengajuanController;
 */
 
 Route::get('/', function () {
-    return view('welcome')->name('landing');
+    return view('welcome');
 });
 Route::middleware('revalidate')->group(function () {
     Route::middleware('guest')->group(function () {

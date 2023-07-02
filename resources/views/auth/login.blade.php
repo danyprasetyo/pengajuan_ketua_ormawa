@@ -10,7 +10,7 @@
         <link href="{{('assets/css/styles.css')}}" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     </head>
-    <body class="bg-primary">
+    <body style="background-color: #ftftft">
         <div id="layoutAuthentication">
             <div id="layoutAuthentication_content">
                 <main>
