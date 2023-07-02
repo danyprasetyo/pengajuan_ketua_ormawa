@@ -14,4 +14,8 @@ class Pengajuan extends Model
     {
         return $this->belongsTo(Ormawa::class, 'ormawa_id');
     }
+    public function periode()
+    {
+        return $this->belongsTo(Periode::class, 'periode_id');
+    }
 }

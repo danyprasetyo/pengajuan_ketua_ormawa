@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="labelModal">Pengajuan
+                <h4 class="modal-title" id="labelModal">Formulir Pengajuan
                 </h4>
                 <button type="button" class="btn btn-outline-danger btn-close" data-bs-dismiss="modal"
                     aria-label="Close"></button>
@@ -16,6 +16,7 @@
 
                     </div>
                     <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+                    <input type="hidden" name="periode_id" value="{{$periode->id}}">
                     <div class="form-floating mb-3">
                         <input class="form-control" id="nama_mahasiswa" name="nama_mahasiswa" type="text"
                             placeholder="Nama Lengkap" />
@@ -43,6 +44,15 @@
                             placeholder="Semester" />
                         <label for="inputPassword">Semester</label>
                     </div>
+                    <div class="form-floating mb-3">
+                        <input class="form-control" id="no_hp" name="no_hp" type="number"
+                            placeholder="No HP yang bisa dihubungi" />
+                        <label for="inputPassword">NO HP</label>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="inputPassword">Alamat</label>
+                       <textarea name="alamat" id="alamat" class="form-control" placeholder="Alamat" cols="10" rows="3"></textarea>
+                    </div>
                     <div class="form-group mb-3">
                         <label for="inputPassword">Photo Profile</label>
                         <div id="pp"></div>
@@ -51,11 +61,11 @@
                         <span class="text-hint text-secondari">*3x4 background biru dengan kemeja biru.</span>
                     </div>
                     <div class="form-group mb-3">
-                        <label for="inputPassword">Sertifikat</label>
+                        <label for="inputPassword">Lampiran</label>
                         <div id="serti"></div>
                         <input class="form-control" id="inputPassword" name="sertifikat" type="file"
                             placeholder="Sertifikat" />
-                        <span class="text-hint"></span>
+                        <span class="text-hint">*Lampiran disimpan dalam satu file pdf</span>
                     </div>
                     <div class="form-floating mb-3">
                         <input class="form-control" id="video" name="video" type="text"

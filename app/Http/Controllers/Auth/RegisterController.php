@@ -25,6 +25,7 @@ class RegisterController extends Controller
             $password = 'gbghfd65#2w45' . $request->password . 'sdghgh^$^';
             $input = $request->all();
             $input['role_id'] = 2;
+            $input['status_aktif'] = 0;
             $input['password'] = bcrypt($password);
             User::create($input);
             $notification = [
