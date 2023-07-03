@@ -63,20 +63,8 @@ class PeriodeController extends Controller
 
     public function show(String $id)
     {
-        try {
-            Periode::create($request->all());
-            $notification = [
-                'message' => 'Berhasil menambahkan periode',
-                'alert-type' => 'success',
-            ];
-            return redirect()
-                ->back()
-                ->with($notification);
-        } catch (\Throwable $th) {
-            return redirect()
-                ->back()
-                ->withErrors('Gagal menambahkan periode')
-                ->withInput();
-        }
+        $data['pengajuans'] = Periode::findOrFail($id)->pengajuan;
+        // dd($data['pengajuans']);
+        return view('admin.periode.show')->with($data);
     }
 }
