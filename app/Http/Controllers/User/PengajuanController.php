@@ -55,11 +55,11 @@ class PengajuanController extends Controller
         $sertifikat = $request->file('sertifikat');
         try {
             $extPhoto = $photo->extension();
-            $photoFilename = 'photo_' . $request->nama_mahasiswa . '_' . Carbon::now() . '.' . $extPhoto;
+            $photoFilename = 'photo_' . $request->nama_mahasiswa . '_' . time() . '.' . $extPhoto;
             $photo->storeAs('public/photo_mhs/', $photoFilename);
 
             $extSertifikat = $sertifikat->extension();
-            $sertifikatFilename = 'lampiran_' . $request->nama_mahasiswa . '_' . Carbon::now() . '.' . $extSertifikat;
+            $sertifikatFilename = 'lampiran_' . $request->nama_mahasiswa . '_' . time() . '.' . $extSertifikat;
             $sertifikat->storeAs('public/lampiran_mhs/', $sertifikatFilename);
 
             $data = $request->all();
@@ -117,20 +117,20 @@ class PengajuanController extends Controller
         $data = $request->all();
         try {
             if ($request->hasFile('photo')) {
-                Storage::delete('public/photo_mhs/'.$pengajuan->photo);
                 $extPhoto = $photo->extension();
-                $photoFilename = 'photo_' . $request->nama_mahasiswa . '_' . Carbon::now() . '.' . $extPhoto;
-                $photo->storeAs('public/photo_mhs/', $photoFilename);
+                $photoFilename = 'photo_' . $request->nama_mahasiswa . '_' . time() . '.' . $extPhoto;
+                $request->file('photo')->storeAs('public/photo_mhs',$photoFilename );
                 $data['photo'] = $photoFilename;
+                Storage::delete('public/photo_mhs/'.$pengajuan->photo);
             } else {
                 $data['photo'] = $pengajuan->photo;
             }
             if ($request->hasFile('sertifikat')) {
-                Storage::delete('public/sertifikat_mhs/'.$pengajuan->sertifikat);
                 $extSertifikat = $sertifikat->extension();
-                $sertifikatFilename = 'sertifikat_' . $request->nama_mahasiswa . '_' . Carbon::now() . '.' . $extSertifikat;
-                $sertifikat->storeAs('public/sertifikat_mhs/', $sertifikatFilename);
+                $sertifikatFilename = 'sertifikat_' . $request->nama_mahasiswa . '_' . time() . '.' . $extSertifikat;
+                $request->file('sertifikat')->storeAs('public/lampiran_mhs/', $sertifikatFilename);
                 $data['sertifikat'] = $sertifikatFilename;
+                Storage::delete('public/lampiran_mhs/'.$pengajuan->sertifikat);
             } else {
                 $data['sertifikat'] = $pengajuan->sertifikat;
             }
