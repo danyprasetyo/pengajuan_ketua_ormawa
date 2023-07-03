@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\KelolaPengajuanController;
 use App\Http\Controllers\Admin\HistoriPengajuanController;
 use App\Http\Controllers\Admin\PeriodeController;
 use App\Http\Controllers\Admin\PersyaratanPendaftaranController;
+use App\Http\Controllers\User\PersyaratanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,13 +75,17 @@ Route::middleware('revalidate')->group(function () {
                         Route::get('/pengajuan/diterima', 'diterima')->name('pengajuan.diterima');
                         Route::patch('/pengajuan/konfirmasi', 'konfirmasi')->name('pengajuan.konfirmasi');
                         Route::get('/pengajuan/{id}', 'show')->name('pengajuan.show');
+                        Route::post('/pengajuan/print', 'print')->name('pengajuan.print');
                     });
-                    Route::controller(HistoriPengajuanController::class)->group(function () {
-                        Route::get('/pengajuan/pending', 'pending')->name('pengajuan.pending');
-                    });
+                    // Route::controller(HistoriPengajuanController::class)->group(function () {
+                    //     Route::get('/pengajuan/pending', 'pending')->name('pengajuan.pending');
+                    // });
                 });
                 Route::middleware(['user', 'akun_aktif'])->group(function () {
                     Route::resource('pengajuan', PengajuanController::class)->only('index','store','edit','update');
+                    Route::controller(PersyaratanController::class)->group(function () {
+                        Route::patch('/persyaratan/setuju', 'persyaratan')->name('persyaratan.setuju');
+                    });
                 });
             });
             // Route::controller(UserSettingsController::class)->group(function () {

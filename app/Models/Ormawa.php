@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Ormawa extends Model
 {
     use HasFactory;
+
+    public function pengajuan()
+    {
+        return $this->hasMany(Pengajuan::class, 'ormawa_id');
+    }
 }

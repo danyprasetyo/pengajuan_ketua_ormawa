@@ -35,11 +35,6 @@
                         </select>
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control" id="angkatan" name="angkatan" type="number"
-                            placeholder="Angkatan" />
-                        <label for="inputPassword">Angkatan</label>
-                    </div>
-                    <div class="form-floating mb-3">
                         <input class="form-control" id="semester" name="semester" type="number"
                             placeholder="Semester" />
                         <label for="inputPassword">Semester</label>

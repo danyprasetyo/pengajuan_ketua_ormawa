@@ -16,7 +16,7 @@ class AkunAktif
     public function handle(Request $request, Closure $next): Response
     {
         if(auth()->user()->status_aktif != 1){
-            return redirect()->back();
+            return redirect()->route('dashboard.');
         }
     
     return $next($request);

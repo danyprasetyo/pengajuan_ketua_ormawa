@@ -38,7 +38,9 @@ class OrmawaController extends Controller
      */
     public function show(Ormawa $ormawa)
     {
-        //
+        $data['pengajuans'] = Ormawa::findOrFail($ormawa->id)->pengajuan;
+        // dd($data['pengajuans']);
+        return view('admin.ormawa.show')->with($data);
     }
 
     /**

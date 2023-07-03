@@ -3,13 +3,13 @@
     Data Pengajuan
 @stop
 @section('pageName')
-    Pengajuan Membutuhkan Konfirmasi
+    {{$pengajuans[0]->ormawa->nama_ormawa}}
 @stop
 @section('pageLink')
-    {{ route('dashboard.pengajuan.pending') }}
+    {{ route('dashboard.ormawa.show', $pengajuans[0]->ormawa_id) }}
 @stop
 @section('pageNow')
-    Konfirmasi
+    List Pengajuan
 @stop
 @section('content')
     <!-- Row -->
@@ -29,7 +29,6 @@
                             <th>No</th>
                             <th>Nama Mahasiswa</th>
                             <th>NPM</th>
-                            <th>Pengajuan Ormawa</th>
                             <TH>Aksi</TH>
                         </thead>
                         <tbody>
@@ -38,7 +37,6 @@
                                     <td>{{ $no + 1 }}</td>
                                     <td>{{ $pengajuan->nama_mahasiswa }}</td>
                                     <td>{{ $pengajuan->npm }}</td>
-                                    <td>{{ $pengajuan->ormawa->nama_ormawa }}</td>
                                     <td>
                                         <form action="{{ route('dashboard.pengajuan.konfirmasi') }}"
                                             id="formPersetujuan" method="post">
@@ -50,10 +48,6 @@
                                             <button type="button"
                                                 onclick="getDataPengajuan('{{ $pengajuan->id }}','#modalPengajuan')"
                                                 class="btn btn-sm btn-info">Lihat</button>
-                                            <button type="button" class="btn btn-sm btn-success"
-                                                onclick="persetujuan('{{ $pengajuan->id }}','#formPersetujuan','1','Setujui pengajuan?')">Setujui</button>
-                                            <button type="button" class="btn btn-sm btn-danger"
-                                                onclick="tolak({{ $pengajuan->id }})">Tolak</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -101,35 +95,6 @@
                     alert(err);
                 }
             });
-        }
-        async function tolak(idData) {
-            const {
-                value: text
-            } = await Swal.fire({
-                input: 'textarea',
-                inputLabel: 'Pesan Penolakan',
-                inputPlaceholder: 'Alasan Penolakan',
-                inputAttributes: {
-                    'aria-label': 'Type your message here'
-                },
-                showCancelButton: true
-            })
-            if (text) {
-                $("#keterangan").val(text);
-                persetujuan(idData, '#formPersetujuan', '0', 'Tolak Pengajuan Ini?')
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Alasan Penolakan Tidak Boleh Kosong!',
-                })
-            }
-        }
-
-        function persetujuan(dataId, formId, persetujuan, message) {
-            $('#status_pengajuan').val(persetujuan);
-            $('#id').val(dataId);
-
-            formConfirmationId(formId, message);
         }
     </script>
 @endpush
