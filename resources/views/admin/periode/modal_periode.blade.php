@@ -14,9 +14,9 @@
                     <div id="update">
                 
                     </div>
-                    <div class="form-floating mb-3">
-                        <input class="form-control" id="inputUsername" name="periode" type="text" placeholder="2022/2023" />
+                    <div class="form-group mb-3">
                         <label for="inputUsername">Periode</label>
+                        <input class="form-control" id="inputUsername" name="periode" type="text" placeholder="2022/2023" />
                     </div>
                 </div>
                 <div class="modal-footer">

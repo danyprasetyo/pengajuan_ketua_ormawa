@@ -2,12 +2,12 @@
 @section('pageTitle')
     Data Pengajuan
 @stop
-@if ($pengajuans->count() > 0)
 @section('pageName')
-    {{$pengajuans[0]->ormawa->nama_ormawa}}
+@if ($pengajuans->count() > 0)
+Periode {{$pengajuans[0]->periode->periode}}    
 @stop
 @section('pageLink')
-    {{ route('dashboard.ormawa.show', $pengajuans[0]->ormawa_id) }}
+    {{ route('dashboard.periode.show', $pengajuans[0]->periode_id) }}
 @stop
 @endif
 @section('pageNow')
@@ -31,6 +31,7 @@
                             <th>No</th>
                             <th>Nama Mahasiswa</th>
                             <th>NPM</th>
+                            <th>Pengajuan</th>
                             <TH>Aksi</TH>
                         </thead>
                         <tbody>
@@ -39,14 +40,16 @@
                                     <td>{{ $no + 1 }}</td>
                                     <td>{{ $pengajuan->nama_mahasiswa }}</td>
                                     <td>{{ $pengajuan->npm }}</td>
+                                    <td>{{$pengajuan->periode->periode}}</td>
                                     <td>
-                                        <button type="button"
-                                        onclick="getDataPengajuan('{{ $pengajuan->id }}','#modalPengajuan')"
-                                        class="btn btn-sm btn-info">Lihat</button>
+                                            <button type="button"
+                                                onclick="getDataPengajuan('{{ $pengajuan->id }}','#modalPengajuan')"
+                                                class="btn btn-sm btn-info">Lihat</button>
+                                        
                                     </td>
                                 </tr>
                             @empty
-                            Belum ada Data
+                            <h2>Belum ada data</h2>
                             @endforelse
                         </tbody>
                     </table>

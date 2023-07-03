@@ -117,20 +117,21 @@ class PengajuanController extends Controller
         $data = $request->all();
         try {
             if ($request->hasFile('photo')) {
-                Storage::delete('public/photo_mhs/'.$pengajuan->photo);
                 $extPhoto = $photo->extension();
-                $photoFilename = 'photo_' . $request->nama_mahasiswa . '_' . time() . '.' . $extPhoto;
+                $photoFilename = 'photo_' . $request->nama_mahasiswa . '_' . Carbon::now() . '.' . $extPhoto;
                 $photo->storeAs('public/photo_mhs/', $photoFilename);
                 $data['photo'] = $photoFilename;
+                Storage::delete('public/photo_mhs/'.$pengajuan->photo);
             } else {
                 $data['photo'] = $pengajuan->photo;
             }
             if ($request->hasFile('sertifikat')) {
-                Storage::delete('public/lampiran_mhs/'.$pengajuan->sertifikat);
+                Storage::delete('public/sertifikat_mhs/'.$pengajuan->sertifikat);
                 $extSertifikat = $sertifikat->extension();
-                $sertifikatFilename = 'lampiran_' . $request->nama_mahasiswa . '_' . time() . '.' . $extSertifikat;
-                $sertifikat->storeAs('public/lampiran_mhs/', $sertifikatFilename);
+                $sertifikatFilename = 'sertifikat_' . $request->nama_mahasiswa . '_' . Carbon::now() . '.' . $extSertifikat;
+                $sertifikat->storeAs('public/sertifikat_mhs/', $sertifikatFilename);
                 $data['sertifikat'] = $sertifikatFilename;
+                Storage::delete('public/lampiran_mhs/'.$pengajuan->sertifikat);
             } else {
                 $data['sertifikat'] = $pengajuan->sertifikat;
             }
