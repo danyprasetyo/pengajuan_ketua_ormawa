@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Pengajuan;
+use PDF;
 
 class KelolaPengajuanController extends Controller
 {
@@ -31,7 +32,9 @@ class KelolaPengajuanController extends Controller
     }
     public function show($id)
     {
-        return Pengajuan::where('id', $id)->with('ormawa')->first();
+        return Pengajuan::where('id', $id)
+            ->with('ormawa')
+            ->first();
     }
     public function konfirmasi(Request $request)
     {
@@ -41,16 +44,23 @@ class KelolaPengajuanController extends Controller
         try {
             $pengajuan->where('id', $id)->update([
                 'status_pengajuan' => $status,
-                'keterangan' => $request->keterangan
+                'keterangan' => $request->keterangan,
             ]);
             return redirect()
-            ->back()
-            ->with(['alert-type' => 'success','message' => 'Aksi Berhasil Dilakukan']);
-            
+                ->back()
+                ->with(['alert-type' => 'success', 'message' => 'Aksi Berhasil Dilakukan']);
         } catch (\Throwable $th) {
             return redirect()
-            ->back()
-            ->withErrors($th->getMessage());
+                ->back()
+                ->withErrors($th->getMessage());
         }
+    }
+    public function print(Request $request)
+    {
+        $id = $request->id;
+        $data = Pengajuan::where('id', $id)->first();
+        $pdf = PDF::loadview('admin.pengajuan.print', ['pengajuan' => $data]);
+        // return $pdf->stream();
+        return $pdf->download('formulir_'.$data->nama_mahasiswa.'.pdf');
     }
 }

@@ -10,6 +10,7 @@ use Auth;
 use App\Models\Ormawa;
 use Storage;
 use App\Models\Periode;
+use App\Models\PersyaratanPendaftaran;
 
 class PengajuanController extends Controller
 {
@@ -22,6 +23,7 @@ class PengajuanController extends Controller
         $data['pengajuan'] = Pengajuan::where('user_id', Auth::user()->id)->first();
         $data['periode'] = Periode::where('status_pembukaan', 1)->first();
         $data['ormawas'] = Ormawa::all();
+        $data['persyaratans'] = PersyaratanPendaftaran::all();
         return view('user.pengajuan.index')->with($data);
     }
 
@@ -41,15 +43,16 @@ class PengajuanController extends Controller
         $validate = $request->validate([
             'nama_mahasiswa' => 'required',
             'npm' => 'required|numeric|unique:pengajuans,npm',
-            'angkatan' => 'required|numeric',
             'semester' => 'required|numeric',
             'photo' => 'required|image|mimes:jpg,bmp,png',
             'sertifikat' => 'required|mimes:pdf',
             'video' => 'required',
             'program_studi' => 'required',
+            'no_hp' => 'required',
+            'alamat' => 'required',
         ]);
-        $photo = $request->photo;
-        $sertifikat = $request->sertifikat;
+        $photo = $request->file('photo');
+        $sertifikat = $request->file('sertifikat');
         try {
             $extPhoto = $photo->extension();
             $photoFilename = 'photo_' . $request->nama_mahasiswa . '_' . Carbon::now() . '.' . $extPhoto;
@@ -102,15 +105,14 @@ class PengajuanController extends Controller
         $validate = $request->validate([
             'nama_mahasiswa' => 'required',
             'npm' => 'required|numeric',
-            'angkatan' => 'required|numeric',
             'semester' => 'required|numeric',
             'photo' => 'image|mimes:jpg,bmp,png',
             'sertifikat' => 'mimes:pdf',
             'video' => 'required',
             'program_studi' => 'required',
         ]);
-        $photo = $request->photo;
-        $sertifikat = $request->sertifikat;
+        $photo = $request->file('photo');
+        $sertifikat = $request->file('sertifikat');
         $pengajuan = Pengajuan::where('id', $id)->first();
         $data = $request->all();
         try {

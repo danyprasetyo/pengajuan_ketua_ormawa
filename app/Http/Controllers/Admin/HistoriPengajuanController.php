@@ -8,7 +8,7 @@ use App\Models\Pengajuan;
 
 class HistoriPengajuanController extends Controller
 {
-    public function pending()
+    public function index()
     {
         $data['pengajuans'] = Pengajuan::orderBy('nama_mahasiswa', 'asc')
             ->get();

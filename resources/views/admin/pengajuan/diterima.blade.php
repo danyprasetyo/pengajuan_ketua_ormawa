@@ -31,6 +31,7 @@
                             <th>NPM</th>
                             <th>Pengajuan Ormawa</th>
                             <TH>Status</TH>
+                            <th>Aksi</th>
                         </thead>
                         <tbody>
                             @foreach ($pengajuans as $no => $pengajuan)
@@ -39,7 +40,20 @@
                                     <td>{{ $pengajuan->nama_mahasiswa }}</td>
                                     <td>{{ $pengajuan->npm }}</td>
                                     <td>{{ $pengajuan->ormawa->nama_ormawa }}</td>
-                                    <td><span class="btn btn-sm btn-success">Diterima</span></td>
+                                    <td><span class="badge bg-success">Diterima</span></td>
+                                    <td><form action="{{ route('dashboard.pengajuan.konfirmasi') }}"
+                                        id="formPersetujuan" method="post">
+                                        @method('patch')
+                                        @csrf
+                                        <input type="hidden" name="status_pengajuan" id="status_pengajuan">
+                                        <input type="hidden" name="id" id="id">
+                                        <input type="hidden" name="keterangan" id="keterangan">
+                                        <button type="button"
+                                                onclick="getDataPengajuan('{{ $pengajuan->id }}','#modalPengajuan')"
+                                                class="btn btn-sm btn-info">Lihat</button>
+                                        <button type="button" class="btn btn-sm btn-danger"
+                                            onclick="tolak({{ $pengajuan->id }})">Tolak</button>
+                                    </form></td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -48,4 +62,72 @@
             </div>
         </div>
     </div>
+    @include('admin.pengajuan.modal_pengajuan')
 @stop
+@push('js')
+    <script>
+        function getDataPengajuan(id_pengajuan, id_modal) {
+            $('#pp').empty();
+            $('#serti').empty();
+            $('#ormawa').empty();
+            let id = id_pengajuan;
+            $.ajax({
+                type: "get",
+                url: `{{ url('dashboard/pengajuan/${id}') }}`,
+                dataType: 'json',
+                success: function(res) {
+                    $('#id_pengajuan').val(id);
+                    $(`#nama_mahasiswa`).val(res.nama_mahasiswa);
+                    $(`#npm`).val(res.npm);
+                    $(`#no_hp`).val(res.no_hp);
+                    $(`#alamat`).val(res.alamat);
+                    $(`#semester`).val(res.semester);
+                    $(`#video`).val(res.video);
+                    $(`#program_studi option[value="${res.program_studi}"]`).attr("selected", "selected").attr(
+                        'class', 'kapilih');
+                    $(`#ormawa`).val(res.ormawa.nama_ormawa)
+                    $("#pp").append(
+                        `<img src="{{ url('storage/photo_mhs/${res.photo}') }}" class="img-fluid mb-1" width="60%" alt="" srcset="">`
+                    );
+                    $("#serti").append(
+                        `<iframe src="{{ url('storage/lampiran_mhs/${res.sertifikat}') }}" class="mb-1" width="100%" height="500px"></iframe>`
+                    )
+                    $(`#labelModal`).text(`Formulir Pengajuan ${res.nama_mahasiswa}`);
+                    $(id_modal).modal('show');
+                },
+                error: function(err) {
+                    alert(err);
+                }
+            });
+        }
+        async function tolak(idData) {
+            const {
+                value: text
+            } = await Swal.fire({
+                input: 'textarea',
+                inputLabel: 'Pesan Penolakan',
+                inputPlaceholder: 'Alasan Penolakan',
+                inputAttributes: {
+                    'aria-label': 'Type your message here'
+                },
+                showCancelButton: true
+            })
+            if (text) {
+                $("#keterangan").val(text);
+                persetujuan(idData, '#formPersetujuan', '0', 'Tolak Pengajuan Ini?')
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Alasan Penolakan Tidak Boleh Kosong!',
+                })
+            }
+        }
+
+        function persetujuan(dataId, formId, persetujuan, message) {
+            $('#status_pengajuan').val(persetujuan);
+            $('#id').val(dataId);
+
+            formConfirmationId(formId, message);
+        }
+    </script>
+@endpush
