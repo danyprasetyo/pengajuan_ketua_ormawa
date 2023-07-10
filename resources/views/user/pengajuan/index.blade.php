@@ -66,7 +66,7 @@
                         <h6 class="card-text"><strong> {{ $pengajuan->keterangan }}</strong></h6>
                         <button type="button" onclick="getDataPengajuan('{{ $pengajuan->id }}','#modalPengajuan')"
                             class="btn btn-info">Lihat Formulir Pengajuan</button>
-                
+
                         @endif
                     @endif
             </div>
@@ -88,7 +88,7 @@
                 <hr />
                 <ul class="list-group list-group-flush">
                     @forelse ($persyaratans as $no => $persyaratan)
-                        <li class="list-group-item">{{ $no + 1 }}. {{ $persyaratan->persyaratan }}</li>
+                    <li class="list-group-item">{{ $no + 1 }}. {{ $persyaratan->persyaratan }}</li>
                 </ul>
             @empty
                 <h6>Belum ada persyaratan</h6>

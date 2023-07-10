@@ -11,57 +11,102 @@
             text-align: center;
             text-transform: uppercase
         }
-        td{
-            text-size-adjust: 50px;
-        }
+        @page { size: A4 }
+
+    h1 {
+        font-weight: bold;
+        font-size: 20pt;
+        text-align: center;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .table th {
+        padding: 8px 8px;
+        border:1px solid #000000;
+        text-align: center;
+    }
+
+    .table td {
+        padding: 3px 3px;
+        border:1px solid #000000;
+    }
+
+    .text-center {
+        text-align: center;
+    }
     </style>
 </head>
-<body>
+<body class="A4">
+    <table>
+        <tr>
+            <td rowspan="5"><img src="{{public_path('images/ftunsur.jpg')}}" alt="" width="100px"></td>
+            <td style="font-size:20px;" class="text-center"><b>PANITIA KHUSUS</b></td>
+            <td rowspan="5"><img src="{{public_path('images/pansus.jpg')}}" alt="" width="100px"></td>
+        </tr>
+        <tr>
+            <td style="font-size:20px;" class="text-center"><b>FAKULTAS TEKNIK</b></td>
+        </tr>
+        <tr>
+            <td style="font-size:20px;" class="text-center"><b>UNIVERSITAS SURYAKANCANA</b></td>
+        </tr>
+        <tr>
+            <td style="font-size:14px;" class="text-center">Jl. Pasir Gede Raya Kel. Bojongherang
+                 Kec. Cianjur - Cilaku 43216</td>
+        </tr>
+        <tr>
+            <td style="font-size:14px;" class="text-center">Email sensus.teknik@gmail.com No. Telp/WhatsApp : 0858-7234-9758</td>
+        </tr>
+    </table>
+
+    <section class="sheet padding-10mm">
     <hr/>
     <h3>Formulir Pendaftaran Calon Ketua Ormawa FT Unsur <br/>Periode {{$pengajuan->periode->periode}}</h3>
     <br/>
     <br/>
-    <table>
+    <table class="table">>
         <tr>
+            <td><b>NO</b></td>
+            <td colspan="2" class="text-center"><b>IDENTITAS PENDAFTAR</b></td>
+        </tr>
+        <tr>
+            <td class="text-center" width="20" >1</td>
             <td>Nama</td>
-            <td>:</td>
             <td>{{$pengajuan->nama_mahasiswa}}</td>
         </tr>
         <tr>
+            <td class="text-center">2</td>
             <td>NPM</td>
-            <td>:</td>
             <td>{{$pengajuan->npm}}</td>
         </tr>
         <tr>
+            <td class="text-center">3</td>
             <td>Program Studi</td>
-            <td>:</td>
             <td>{{$pengajuan->program_studi}}</td>
         </tr>
         <tr>
-            <td>Fakultas</td>
-            <td>:</td>
-            <td>Teknik</td>
-        </tr>
-        <tr>
+            <td class="text-center">4</td>
             <td>Semester</td>
-            <td>:</td>
             <td>{{$pengajuan->semester}}</td>
         </tr>
         <tr>
+            <td class="text-center">5</td>
             <td>NO HP</td>
-            <td>:</td>
             <td>{{$pengajuan->no_hp}}</td>
         </tr>
         <tr>
+            <td class="text-center">6</td>
             <td>Alamat</td>
-            <td>:</td>
             <td>{{$pengajuan->alamat}}</td>
         </tr>
     </table>
     <br><br><br>
     <table>
         <tr>
-            <td><img src="{{ public_path('storage/photo_mhs/'.$pengajuan->photo)}}" width="100px" height="150px"/></td>
+            <td><img src="{{ public_path('storage/photo_mhs/'.$pengajuan->photo)}}" width="151px" height="226px"/></td>
         </tr>
     </table>
 </body>
