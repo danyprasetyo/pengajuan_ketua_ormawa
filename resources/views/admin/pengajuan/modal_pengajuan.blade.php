@@ -44,20 +44,21 @@
                         <label for="inputPassword">Photo Profile</label>
                         <div id="pp"></div>
                     </div>
-                    <div class="form-group mb-3">
-                        <label for="inputPassword">Lampiran</label>
-                        <div id="serti"></div>
+                    
+                    
+                    <div class="form-floating mb-3">
+                        <input class="form-control" disabled id="ormawa_id" name="ormawa" type="text"
+                            placeholder="Angkatan" />
+                        <label for="inputPassword">Ormawa Pilihan</label>
+                    </div>
+                    <div id="data_sertifikat">
+
                     </div>
                     <div class="form-floating mb-3">
                         <input class="form-control" disabled id="video" name="video" type="text"
                             placeholder="Video Klarifikasi" />
                         <label for="inputPassword">Link Video Klarifikasi</label>
                         <span class="text-hint">*video diupload di youtube atau instagram</span>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input class="form-control" disabled id="ormawa" name="ormawa" type="text"
-                            placeholder="Angkatan" />
-                        <label for="inputPassword">Ormawa Pilihan</label>
                     </div>
             </div>
             <div class="modal-footer">
