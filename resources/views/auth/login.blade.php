@@ -15,7 +15,7 @@
             }
         </style>
     </head>
-    <body class="bg-primary">
+    <body style="background-color: #ftftft">
         <div id="layoutAuthentication">
             <div id="layoutAuthentication_content">
                 <main>
