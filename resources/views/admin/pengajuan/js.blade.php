@@ -10,32 +10,32 @@
                                         
                                     </div>
                                     <div class="form-group mb-3">
-                                        <div id="ktm_pdf"></div>
+                                        <div id="ktm_img"></div>
                                         <label for="scan_ktm">Scan KTM</label>
                                        
                                         
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="suket_mhs_aktif">Surat Keterangan Mahasiswa Aktif Semester 4</label>
-                                        <div id="suket_mhs_aktif_pdf"></div>
+                                        <div id="suket_mhs_aktif_img"></div>
                                         
                                         
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="surat_kebersediaan">Surat Pernyataan Kebersediaan Menjadi Ketua</label>
-                                        <div id="suket_kebersediaan_pdf"></div>
+                                        <div id="suket_kebersediaan_img"></div>
                                         
                                         
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="nilai_ipk">Lampiran Nilai IPK. Minimal 2.8</label>
-                                        <div id="nilai_ipk_pdf"></div>
+                                        <div id="nilai_ipk_img"></div>
                                         
                                         
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="suket_rekomendasi">Surat Rekomendasi Dari Program Studi</label>
-                                        <div id="suket_rekomendasi_pdf"></div>
+                                        <div id="suket_rekomendasi_img"></div>
                                        
                                         
                                     </div>
@@ -77,22 +77,22 @@
                     );
                     cekOrmawa(res.ormawa_id);
                     $("#sertifikat_organisasi").append(
-                        `<iframe src="{{ url('storage/sertifikat/${res.sertifikat}') }}" class="mb-1" width="100%" height="500px"></iframe>`
+                        `<img src="{{ url('storage/sertifikat/${res.sertifikat}') }}" class="img-fluid mb-1" width="100%">`
                     );
-                    $("#ktm_pdf").append(
-                        `<iframe src="{{ url('storage/ktm/${res.scan_ktm}') }}" class="mb-1" width="100%" height="500px"></iframe>`
+                    $("#ktm_img").append(
+                        `<img src="{{ url('storage/ktm/${res.scan_ktm}') }}" class="img-fluid mb-1" width="100%">`
                     );
-                    $("#suket_mhs_aktif_pdf").append(
-                        `<iframe src="{{ url('storage/suketMhs/${res.suket_mhs_aktif}') }}" class="mb-1" width="100%" height="500px"></iframe>`
+                    $("#suket_mhs_aktif_img").append(
+                        `<img src="{{ url('storage/suketMhs/${res.suket_mhs_aktif}') }}" class="img-fluid mb-1" width="100%">`
                     );
-                    $("#suket_kebersediaan_pdf").append(
-                        `<iframe src="{{ url('storage/suratKebersediaan/${res.surat_kebersediaan}') }}" class="mb-1" width="100%" height="500px"></iframe>`
+                    $("#suket_kebersediaan_img").append(
+                        `<img src="{{ url('storage/suratKebersediaan/${res.surat_kebersediaan}') }}" class="img-fluid mb-1" width="100%">`
                     );
-                    $("#nilai_ipk_pdf").append(
-                        `<iframe src="{{ url('storage/nilai/${res.nilai_ipk}') }}" class="mb-1" width="100%" height="500px"></iframe>`
+                    $("#nilai_ipk_img").append(
+                        `<img src="{{ url('storage/nilai/${res.nilai_ipk}') }}" class="img-fluid mb-1" width="100%">`
                     );
-                    $("#suket_rekomendasi_pdf").append(
-                        `<iframe src="{{ url('storage/suratRekomendasi/${res.suket_rekomendasi}') }}" class="mb-1" width="100%" height="500px"></iframe>`
+                    $("#suket_rekomendasi_img").append(
+                        `<img src="{{ url('storage/suratRekomendasi/${res.suket_rekomendasi}') }}" class="img-fluid mb-1" width="100%">`
                     );
                     $(`#labelModal`).text(`Formulir Pengajuan ${res.nama_mahasiswa}`);
                     $(id_modal).modal('show');
