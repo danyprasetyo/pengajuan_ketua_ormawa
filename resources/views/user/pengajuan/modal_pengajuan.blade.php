@@ -49,11 +49,11 @@
                         <textarea name="alamat" id="alamat" class="form-control" placeholder="Alamat" cols="10" rows="3"></textarea>
                     </div>
                     <div class="form-group mb-3">
-                        <label for="inputPassword">Photo Profile</label>
+                        <label for="inputPassword">Photo Berwarna</label>
                         <div id="pp"></div>
                         <input class="form-control" accept="image/*" id="photo" name="photo" type="file"
                             placeholder="Photo Profile" />
-                        <span class="text-hint text-secondari">*3x4 background biru dengan kemeja biru.</span>
+                        <span class="text-hint text-secondari">*4x6 Menggunakan almamater.</span>
                     </div>
                     <div class="form-group mb-3">
                         <label for="inputPassword">Pengajuan Menjadi Ketua Ormawa</label>
