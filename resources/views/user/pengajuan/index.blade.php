@@ -9,7 +9,7 @@ Pengajuan
 <div class="row">
     @if (Auth::user()->status_pendaftaran == 1)
     <h3>Hello {{ Auth::user()->username }}</h3>
-    
+
     <div class="col-xl-6 col-sm-12 mb-3">
         <div class="card">
             <div class="card-body">
@@ -54,6 +54,15 @@ Pengajuan
                 <h4 class="card-text">Selamat {{ $pengajuan->nama_mahasiswa }}</h4>
                 <h5 class="card-text text-success"><strong>Pengajuan Berhasil Diterima</strong></h5>
                 <h6 class="card-text">Panitia Pansus Akan Menghubungi Kamu Dalam 3x4 Hari Kerja</h6>
+                @elseif($pengajuan->status_pengajuan == 3)
+                <h4 class="card-text">Halo!! {{ $pengajuan->nama_mahasiswa }}</h4>
+                <h5 class="card-text text-warning"><strong>Mohon periksa kembali pengajuan anda!</strong>
+                </h5>
+                <br />
+                <h6 class="card-title"><strong>Alasan</strong></h6>
+                <h6 class="card-text"><strong> {{ $pengajuan->keterangan }}</strong></h6>
+                <button type="button" onclick="getDataPengajuan('{{ $pengajuan->id }}','#modalPengajuan')"
+                    class="btn btn-info">Lihat Formulir Pengajuan</button>
                 @else
                 <h4 class="card-text">Mohon maaf {{ $pengajuan->nama_mahasiswa }}</h4>
                 <h5 class="card-text text-danger"><strong>Pengajuan Kamu Tidak Dapat Kami Terima</strong>
