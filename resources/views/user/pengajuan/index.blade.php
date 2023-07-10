@@ -6,25 +6,27 @@
     Pengajuan
 @endsection
 @section('content')
-    <div class="row">
-        @if (Auth::user()->status_pendaftaran == 1)
-            <h3>Hello {{ Auth::user()->username }}</h3>
 
-            <div class="col-xl-6 col-sm-12 mb-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h5>Persyaratan Pendaftaran Menjadi Calon Ketua Ormawa di Fakultas Teknik Universitas Suryakancana
-                        </h5>
-                        <hr />
-                        <ul class="list-group list-group-flush">
-                            @forelse ($persyaratans as $no => $persyaratan)
-                                <li class="list-group-item">{{ $no + 1 }}. {{ $persyaratan->persyaratan }}</li>
-                        </ul>
-                    @empty
-                        <h6>Belum ada persyaratan</h6>
-        @endforelse
-    </div>
-    </div>
+<div class="row">
+    @if (Auth::user()->status_pendaftaran == 1)
+    <h3>Hello {{ Auth::user()->username }}</h3>
+
+    <div class="col-xl-6 col-sm-12 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5>Persyaratan Pendaftaran Menjadi Calon Ketua Ormawa di Fakultas Teknik Universitas Suryakancana
+                </h5>
+                <hr />
+                <ul class="list-group list-group-flush">
+                    @forelse ($persyaratans as $no => $persyaratan)
+                    <li class="list-group-item">{{ $no + 1 }}. {{ $persyaratan->persyaratan }}</li>
+                </ul>
+                @empty
+                <h6>Belum ada persyaratan</h6>
+                @endforelse
+            </div>
+        </div>
+
     </div>
     <div class="col-xl-4 col-md-6 mb-4">
         <div class="card text-center">
@@ -36,7 +38,35 @@
             </div>
             <div class="card-body">
                 @if (!$periode)
-                    <h5 class="card-title"><strong>Pendaftaran belum dibuka</strong></h5>
+
+                <h5 class="card-title"><strong>Pendaftaran belum dibuka</strong></h5>
+                @else
+                @if (!$pengajuan)
+                <h5 class="card-title"><strong>Klik Tombol Dibawah Untuk Mengisi Formulir Pengajuan Menjadi Ketua
+                        Ormawa</strong></h5>
+                <br />
+                <button type="button" data-bs-toggle="modal" data-bs-target="#modalPengajuan"
+                    class="btn btn-primary">Isi Formulir Pengajuan</button>
+                @elseif($pengajuan->status_pengajuan == 2)
+                <h5 class="card-title"><strong>Pengajuan Berhasil Dibuat</strong></h5>
+                <h6 class="card-text">Formulir Kamu Sedang Ditinjau Oleh Panitia Pansus</h6>
+                <br />
+                <button type="button" onclick="getDataPengajuan('{{ $pengajuan->id }}','#modalPengajuan')"
+                    class="btn btn-info">Lihat Formulir Pengajuan</button>
+                @elseif($pengajuan->status_pengajuan == 1)
+                <h4 class="card-text">Selamat {{ $pengajuan->nama_mahasiswa }}</h4>
+                <h5 class="card-text text-success"><strong>Pengajuan Berhasil Diterima</strong></h5>
+                <h6 class="card-text">Panitia Pansus Akan Menghubungi Kamu Dalam 3x4 Hari Kerja</h6>
+                @elseif($pengajuan->status_pengajuan == 3)
+                <h4 class="card-text">Halo!! {{ $pengajuan->nama_mahasiswa }}</h4>
+                <h5 class="card-text text-warning"><strong>Mohon periksa kembali pengajuan anda!</strong>
+                </h5>
+                <br />
+                <h6 class="card-title"><strong>Alasan</strong></h6>
+                <h6 class="card-text"><strong> {{ $pengajuan->keterangan }}</strong></h6>
+                <button type="button" onclick="getDataPengajuan('{{ $pengajuan->id }}','#modalPengajuan')"
+                    class="btn btn-info">Lihat Formulir Pengajuan</button>
+
                 @else
                     @if (!$pengajuan)
                         <h5 class="card-title"><strong>Klik Tombol Dibawah Untuk Mengisi Formulir Pengajuan Menjadi Ketua
