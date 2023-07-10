@@ -30,6 +30,7 @@
                             <th>Nama Mahasiswa</th>
                             <th>NPM</th>
                             <th>Pengajuan Ormawa</th>
+                            <th>Keterangan</th>
                             <TH>Aksi</TH>
                         </thead>
                         <tbody>
@@ -39,6 +40,7 @@
                                     <td>{{ $pengajuan->nama_mahasiswa }}</td>
                                     <td>{{ $pengajuan->npm }}</td>
                                     <td>{{ $pengajuan->ormawa->nama_ormawa }}</td>
+                                    <td>{{ $pengajuan->keterangan }}</td>
                                     <td>
                                         <form action="{{ route('dashboard.pengajuan.konfirmasi') }}"
                                             id="formPersetujuan" method="post">

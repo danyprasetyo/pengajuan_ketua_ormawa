@@ -42,11 +42,19 @@
                         <h5 class="card-title"><strong>Klik Tombol Dibawah Untuk Mengisi Formulir Pengajuan Menjadi Ketua
                                 Ormawa</strong></h5>
                         <br />
-                        <button type="button" data-bs-toggle="modal" onclick="$(`#data_sertifikat`).empty();$('#ormawa_id').prop('selectedIndex',0);" data-bs-target="#modalPengajuan"
-                            class="btn btn-primary">Isi Formulir Pengajuan</button>
+                        <button type="button" data-bs-toggle="modal"
+                            onclick="$(`#data_sertifikat`).empty();$('#ormawa_id').prop('selectedIndex',0);"
+                            data-bs-target="#modalPengajuan" class="btn btn-primary">Isi Formulir Pengajuan</button>
                     @elseif($pengajuan->status_pengajuan == 2)
                         <h5 class="card-title"><strong>Pengajuan Berhasil Dibuat</strong></h5>
                         <h6 class="card-text">Formulir Kamu Sedang Ditinjau Oleh Panitia Pansus</h6>
+                        <br />
+                        <button type="button" onclick="getDataPengajuan('{{ $pengajuan->id }}','#modalPengajuan')"
+                            class="btn btn-info">Lihat Formulir Pengajuan</button>
+                    @elseif($pengajuan->status_pengajuan == 3)
+                        <h5 class="card-title"><strong>Pengajuan Berhasil Dibuat</strong></h5>
+                        <h6 class="card-text">Formulir Kamu Perlu Diperbarui</h6>
+                        <h6 class="card-text"><strong> {{ $pengajuan->keterangan }}</strong></h6>
                         <br />
                         <button type="button" onclick="getDataPengajuan('{{ $pengajuan->id }}','#modalPengajuan')"
                             class="btn btn-info">Lihat Formulir Pengajuan</button>
