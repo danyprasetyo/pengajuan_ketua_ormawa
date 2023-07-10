@@ -128,49 +128,49 @@
                         <div id="sertifikat_organisasi"></div>
                         <input class="form-control" id="sertifikat" name="sertifikat" type="file"
                             placeholder="Sertifikat Keorganisasian" />
-                        <span class="text-hint">*Lampiran disimpan dalam format pdf</span>
+                        <span class="text-hint">*Lampiran disimpan dalam format gambar</span>
                     </div>`;
         let nonUkm = `<div class="form-group mb-3">
                                         <label for="sertifikat">Sertifikat Keorganisasian</label>
                                         <div id="sertifikat_organisasi"></div>
                                         <input class="form-control" id="sertifikat" name="sertifikat" type="file"
                                             placeholder="Sertifikat Keorganisasian" />
-                                        <span class="text-hint">*Lampiran disimpan dalam format pdf</span>
+                                        <span class="text-hint">*Lampiran disimpan dalam format gambar</span>
                                     </div>
                                     <div class="form-group mb-3">
-                                        <div id="ktm_pdf"></div>
+                                        <div id="ktm_gambar"></div>
                                         <label for="scan_ktm">Scan KTM</label>
                                         <input class="form-control" id="scan_ktm" name="scan_ktm" type="file"
                                             placeholder="Scan KTM" />
-                                        <span class="text-hint">*Lampiran disimpan dalam format pdf</span>
+                                        <span class="text-hint">*Lampiran disimpan dalam format gambar</span>
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="suket_mhs_aktif">Surat Keterangan Mahasiswa Aktif Semester 4</label>
-                                        <div id="suket_mhs_aktif_pdf"></div>
+                                        <div id="suket_mhs_aktif_gambar"></div>
                                         <input class="form-control" id="suket_mhs_aktif" name="suket_mhs_aktif" type="file"
                                             placeholder="Sertifikat" />
-                                        <span class="text-hint">*Lampiran disimpan dalam format pdf</span>
+                                        <span class="text-hint">*Lampiran disimpan dalam format gambar</span>
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="surat_kebersediaan">Surat Pernyataan Kebersediaan Menjadi Ketua</label>
-                                        <div id="suket_kebersediaan_pdf"></div>
+                                        <div id="suket_kebersediaan_gambar"></div>
                                         <input class="form-control" id="surat_kebersediaan" name="surat_kebersediaan" type="file"
                                             placeholder="Sertifikat" />
-                                        <span class="text-hint">*Lampiran disimpan dalam format pdf</span>
+                                        <span class="text-hint">*Lampiran disimpan dalam format gambar</span>
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="nilai_ipk">Lampiran Nilai IPK. Minimal 2.8</label>
-                                        <div id="nilai_ipk_pdf"></div>
+                                        <div id="nilai_ipk_gambar"></div>
                                         <input class="form-control" id="nilai_ipk" name="nilai_ipk" type="file"
                                             placeholder="Sertifikat" />
-                                        <span class="text-hint">*Lampiran disimpan dalam format pdf</span>
+                                        <span class="text-hint">*Lampiran disimpan dalam format gambar</span>
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="suket_rekomendasi">Surat Rekomendasi Dari Program Studi</label>
-                                        <div id="suket_rekomendasi_pdf"></div>
+                                        <div id="suket_rekomendasi_gambar"></div>
                                         <input class="form-control" id="suket_rekomendasi" name="suket_rekomendasi" type="file"
                                             placeholder="Sertifikat" />
-                                        <span class="text-hint">*Lampiran disimpan dalam format pdf</span>
+                                        <span class="text-hint">*Lampiran disimpan dalam format gambar</span>
                                     </div>
                                     `;
 
@@ -222,22 +222,22 @@
                     );
                     cekOrmawa(res.ormawa_id);
                     $("#sertifikat_organisasi").append(
-                        `<iframe src="{{ url('storage/sertifikat/${res.sertifikat}') }}" class="mb-1" width="100%" height="500px"></iframe>`
+                        `<img src="{{ url('storage/sertifikat/${res.sertifikat}') }}" class="img-fluid mb-1" width="100%">`
                     );
-                    $("#ktm_pdf").append(
-                        `<iframe src="{{ url('storage/ktm/${res.scan_ktm}') }}" class="mb-1" width="100%" height="500px"></iframe>`
+                    $("#ktm_gambar").append(
+                        `<img src="{{ url('storage/ktm/${res.scan_ktm}') }}" class="img-fluid mb-1" width="100%">`
                     );
-                    $("#suket_mhs_aktif_pdf").append(
-                        `<iframe src="{{ url('storage/suketMhs/${res.suket_mhs_aktif}') }}" class="mb-1" width="100%" height="500px"></iframe>`
+                    $("#suket_mhs_aktif_gambar").append(
+                        `<img src="{{ url('storage/suketMhs/${res.suket_mhs_aktif}') }}" class="img-fluid mb-1" width="100%">`
                     );
-                    $("#suket_kebersediaan_pdf").append(
-                        `<iframe src="{{ url('storage/suratKebersediaan/${res.surat_kebersediaan}') }}" class="mb-1" width="100%" height="500px"></iframe>`
+                    $("#suket_kebersediaan_gambar").append(
+                        `<img src="{{ url('storage/suratKebersediaan/${res.surat_kebersediaan}') }}" class="img-fluid mb-1" width="100%">`
                     );
-                    $("#nilai_ipk_pdf").append(
-                        `<iframe src="{{ url('storage/nilai/${res.nilai_ipk}') }}" class="mb-1" width="100%" height="500px"></iframe>`
+                    $("#nilai_ipk_gambar").append(
+                        `<img src="{{ url('storage/nilai/${res.nilai_ipk}') }}" class="img-fluid mb-1" width="100%">`
                     );
-                    $("#suket_rekomendasi_pdf").append(
-                        `<iframe src="{{ url('storage/suratRekomendasi/${res.suket_rekomendasi}') }}" class="mb-1" width="100%" height="500px"></iframe>`
+                    $("#suket_rekomendasi_gambar").append(
+                        `<img src="{{ url('storage/suratRekomendasi/${res.suket_rekomendasi}') }}" class="img-fluid mb-1" width="100%">`
                     );
                     $(`#labelModal`).text('Edit Pengajuan');
                     $(`#btn-submit`).text('Update');

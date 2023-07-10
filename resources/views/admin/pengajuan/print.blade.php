@@ -70,6 +70,7 @@
     <hr/>
     <h3>Formulir Pendaftaran Calon Ketua Ormawa FT Unsur <br/>Periode {{$pengajuan->periode->periode}}</h3>
     <br/>
+    <h4 class="text-center">Bakal Calon Ketua {{$pengajuan->ormawa->nama_ormawa}}</h4>
     <br/>
     <table class="table">>
         <tr>
@@ -112,54 +113,22 @@
         <tr>
             <td><img src="{{ public_path('storage/photo_mhs/'.$pengajuan->photo)}}" width="151px" height="226px"/></td>
         </tr>
-        <tr id="pdf"></tr>
+        @if ($pengajuan->ormawa_id == 1 || $pengajuan->ormawa_id == 2 || $pengajuan->ormawa_id == 3)
+        <tr><img src="{{ public_path('storage/sertifikat/'.$pengajuan->sertifikat)}}" width="100%"/></tr>
+        @else
+        <tr><img src="{{ public_path('storage/sertifikat/'.$pengajuan->sertifikat)}}" width="100%"/></tr>
+        <hr/>
+        <tr><img src="{{ public_path('storage/ktm/'.$pengajuan->scan_ktm)}}" width="100%"/></tr>
+        <hr/>
+        <tr><img src="{{ public_path('storage/suketMhs/'.$pengajuan->suket_mhs_aktif)}}" width="100%"/></tr>
+        <hr/>
+        <tr><img src="{{ public_path('storage/suratKebersediaan/'.$pengajuan->surat_kebersediaan)}}" width="100%"/></tr>
+        <hr/>
+        <tr><img src="{{ public_path('storage/suratRekomendasi/'.$pengajuan->suket_rekomendasi)}}" width="100%"/></tr>
+        <hr/>
+        <tr><img src="{{ public_path('storage/nilai/'.$pengajuan->nilai_ipk)}}" width="100%"/></tr>
+        @endif
     </table>
-    {{-- {{ public_path('storage/sertifikat/'.$pengajuan->sertifikat)} --}}
-    <div id="viewerContainer"></div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.8.162/pdf.min.js"
-        integrity="sha512-9Wd08apcJEwm8g3lBTg1UW/njdN0iuuOVWKpyinK3uA7ISAE5PmEZ4y8bZYTXVOE3tlt7aFlCBBLmLt5cUxe2Q=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.8.162/pdf.worker.min.js"
-        integrity="sha512-kYruxZBxGQJy6pFwz9JVe6FCgCZEPPvxC3eoy4A+fCMWcSGqPxxGC7M1S6eyXCBfm/4d7l4cf8XNoULZQQ+MtQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.8.162/pdf_viewer.min.js"
-        integrity="sha512-4OIgtzKMwM3LvyUNlYaXtoeccZK3T+UGWdQ0rSnFj8B5uwgUFINQEMXPQIiBx7k2+bqAjl/A6LqYPzqRAj7Ewg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script>
-        // Path or URL to the PDF file
-        var pdfPath = `{{ url('storage/sertifikat/' . $pengajuan->sertifikat) }}`;
-
-        // Load the PDF file
-       const loadingTask = pdfjsLib.getDocument(pdfPath);
-            
-            loadingTask.promise.then((pdf) => {
-                // Fetch the first page of the PDF
-                pdf.getPage(1).then((page) => {
-                    // Set the desired scale (e.g., 1.5 for 150%)
-                    const scale = 1.5;
-                    
-                    // Set the canvas element to render the PDF page
-                    const canvas = document.createElement('canvas');
-                    const context = canvas.getContext('2d');
-                    canvas.width = page.view[2] * scale;
-                    canvas.height = page.view[3] * scale;
-                    // Render the PDF page into the canvas
-                    const renderContext = {
-                        canvasContext: context,
-                        viewport: page.getViewport({ scale: scale }),
-                    };
-                    page.render(renderContext).promise.then(() => {
-                        // Convert the canvas to an image
-                        const image = new Image();
-                        image.src = canvas.toDataURL('image/png');
-                        
-                        // Display the image on the page
-                        document.getElementById("pdf").appendChild(image);
-
-                    });
-                });
-            });
-    </script>
 
 </body>
 </html>
