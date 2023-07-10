@@ -91,7 +91,7 @@ Pengajuan
                 <hr />
                 <ul class="list-group list-group-flush">
                     @forelse ($persyaratans as $no => $persyaratan)
-                    <li class="list-group-item">{{ $no + 1 }}. {{ $persyaratan->persyaratan }}</li>
+                    <li class="list-group-item">{{ $no + 1 }}. {{$persyaratan->persyaratan }}</li>
                 </ul>
                 @empty
                 <h6>Belum ada persyaratan</h6>
