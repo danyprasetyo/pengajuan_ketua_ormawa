@@ -50,21 +50,78 @@ class PengajuanController extends Controller
             'program_studi' => 'required',
             'no_hp' => 'required',
             'alamat' => 'required',
+            'scan_ktm' => 'mimes:pdf',
+            'suket_mhs_aktif' => 'mimes:pdf',
+            'surat_kebersediaan' => 'mimes:pdf',
+            'suket_rekomendasi' => 'mimes:pdf',
+            'nilai_ipk' => 'mimes:pdf',
+            'ormawa_id' => 'required'
         ]);
         $photo = $request->file('photo');
         $sertifikat = $request->file('sertifikat');
+        $ktm = $request->file('scan_ktm');
+        $suketMhs = $request->file('suket_mhs_aktif');
+        $suratKebersediaan = $request->file('surat_kebersediaan');
+        $suratRekomendasi = $request->file('suket_rekomendasi');
+        $nilai = $request->file('nilai_ipk');
+        $data = $request->all();
         try {
-            $extPhoto = $photo->extension();
-            $photoFilename = 'photo_' . $request->nama_mahasiswa . '_' . time() . '.' . $extPhoto;
-            $photo->storeAs('public/photo_mhs/', $photoFilename);
-
-            $extSertifikat = $sertifikat->extension();
-            $sertifikatFilename = 'lampiran_' . $request->nama_mahasiswa . '_' . time() . '.' . $extSertifikat;
-            $sertifikat->storeAs('public/lampiran_mhs/', $sertifikatFilename);
-
-            $data = $request->all();
-            $data['sertifikat'] = $sertifikatFilename;
-            $data['photo'] = $photoFilename;
+            if ($request->hasFile('photo')) {
+                $extPhoto = $photo->extension();
+                $photoFilename = 'photo_' . $request->nama_mahasiswa . '_' . time() . '.' . $extPhoto;
+                $photo->storeAs('public/photo_mhs/', $photoFilename);
+                $data['photo'] = $photoFilename;
+            } else {
+                $data['photo'] = null;
+            }
+            if ($request->hasFile('sertifikat')) {
+                $extSertifikat = $sertifikat->extension();
+                $sertifikatFilename = 'lampiran_' . $request->nama_mahasiswa . '_' . time() . '.' . $extSertifikat;
+                $sertifikat->storeAs('public/sertifikat/', $sertifikatFilename);
+                $data['sertifikat'] = $sertifikatFilename;
+            } else {
+                $data['sertifikat'] = null;
+            }
+            if ($request->hasFile('scan_ktm')) {
+                $extKtm = $ktm->extension();
+                $ktmFilename = 'lampiran_' . $request->nama_mahasiswa . '_' . time() . '.' . $extKtm;
+                $ktm->storeAs('public/ktm/', $ktmFilename);
+                $data['scan_ktm'] = $ktmFilename;
+            } else {
+                $data['scan_ktm'] = null;
+            }
+            if ($request->hasFile('suket_mhs_aktif')) {
+                $extsuketMhs = $suketMhs->extension();
+                $suketMhsFilename = 'lampiran_' . $request->nama_mahasiswa . '_' . time() . '.' . $extsuketMhs;
+                $suketMhs->storeAs('public/suketMhs/', $suketMhsFilename);
+                $data['suket_mhs_aktif'] = $suketMhsFilename;
+            } else {
+                $data['suket_mhs_aktif'] = null;
+            }
+            if ($request->hasFile('surat_kebersediaan')) {
+                $extsuratKebersediaan = $suratKebersediaan->extension();
+                $suratKebersediaanFilename = 'lampiran_' . $request->nama_mahasiswa . '_' . time() . '.' . $extsuratKebersediaan;
+                $suratKebersediaan->storeAs('public/suratKebersediaan/', $suratKebersediaanFilename);
+                $data['surat_kebersediaan'] = $suratKebersediaanFilename;
+            } else {
+                $data['surat_kebersediaan'] = null;
+            }
+            if ($request->hasFile('suket_rekomendasi')) {
+                $extsuratRekomendasi = $suratRekomendasi->extension();
+                $suratRekomendasiFilename = 'lampiran_' . $request->nama_mahasiswa . '_' . time() . '.' . $extsuratRekomendasi;
+                $suratRekomendasi->storeAs('public/suratRekomendasi/', $suratRekomendasiFilename);
+                $data['suket_rekomendasi'] = $suratRekomendasiFilename;
+            } else {
+                $data['suket_rekomendasi'] = null;
+            }
+            if ($request->hasFile('nilai_ipk')) {
+                $extnilai = $nilai->extension();
+                $nilaiFilename = 'lampiran_' . $request->nama_mahasiswa . '_' . time() . '.' . $extnilai;
+                $nilai->storeAs('public/nilai/', $nilaiFilename);
+                $data['nilai_ipk'] = $nilaiFilename;
+            } else {
+                $data['nilai_ipk'] = null;
+            }
 
             Pengajuan::create($data);
         } catch (\Throwable $th) {
@@ -110,36 +167,97 @@ class PengajuanController extends Controller
             'sertifikat' => 'mimes:pdf',
             'video' => 'required',
             'program_studi' => 'required',
+            'no_hp' => 'required',
+            'alamat' => 'required',
+            'scan_ktm' => 'mimes:pdf',
+            'suket_mhs_aktif' => 'mimes:pdf',
+            'surat_kebersediaan' => 'mimes:pdf',
+            'suket_rekomendasi' => 'mimes:pdf',
+            'nilai_ipk' => 'mimes:pdf',
+            'ormawa_id' => 'required'
         ]);
         $photo = $request->file('photo');
         $sertifikat = $request->file('sertifikat');
+        $ktm = $request->file('scan_ktm');
+        $suketMhs = $request->file('suket_mhs_aktif');
+        $suratKebersediaan = $request->file('surat_kebersediaan');
+        $suratRekomendasi = $request->file('suket_rekomendasi');
+        $nilai = $request->file('nilai_ipk');
         $pengajuan = Pengajuan::where('id', $id)->first();
         $data = $request->all();
         try {
             if ($request->hasFile('photo')) {
+                Storage::delete('public/photo_mhs/' . $pengajuan->photo);
                 $extPhoto = $photo->extension();
                 $photoFilename = 'photo_' . $request->nama_mahasiswa . '_' . time() . '.' . $extPhoto;
-                $request->file('photo')->storeAs('public/photo_mhs',$photoFilename );
+                $photo->storeAs('public/photo_mhs/', $photoFilename);
                 $data['photo'] = $photoFilename;
                 Storage::delete('public/photo_mhs/'.$pengajuan->photo);
             } else {
                 $data['photo'] = $pengajuan->photo;
             }
             if ($request->hasFile('sertifikat')) {
+                Storage::delete('public/sertifikat/' . $pengajuan->sertifikat);
                 $extSertifikat = $sertifikat->extension();
-                $sertifikatFilename = 'sertifikat_' . $request->nama_mahasiswa . '_' . time() . '.' . $extSertifikat;
-                $request->file('sertifikat')->storeAs('public/lampiran_mhs/', $sertifikatFilename);
+                $sertifikatFilename = 'lampiran_' . $request->nama_mahasiswa . '_' . time() . '.' . $extSertifikat;
+                $sertifikat->storeAs('public/sertifikat/', $sertifikatFilename);
+
                 $data['sertifikat'] = $sertifikatFilename;
                 Storage::delete('public/lampiran_mhs/'.$pengajuan->sertifikat);
             } else {
                 $data['sertifikat'] = $pengajuan->sertifikat;
+            }
+            if ($request->hasFile('scan_ktm')) {
+                Storage::delete('public/ktm/' . $pengajuan->scan_ktm);
+                $extKtm = $ktm->extension();
+                $ktmFilename = 'lampiran_' . $request->nama_mahasiswa . '_' . time() . '.' . $extKtm;
+                $ktm->storeAs('public/ktm/', $ktmFilename);
+                $data['scan_ktm'] = $ktmFilename;
+            } else {
+                $data['scan_ktm'] = $pengajuan->scan_ktm;
+            }
+            if ($request->hasFile('suket_mhs_aktif')) {
+                Storage::delete('public/suketMhs/' . $pengajuan->suket_mhs_aktif);
+                $extsuketMhs = $suketMhs->extension();
+                $suketMhsFilename = 'lampiran_' . $request->nama_mahasiswa . '_' . time() . '.' . $extsuketMhs;
+                $suketMhs->storeAs('public/suketMhs/', $suketMhsFilename);
+                $data['suket_mhs_aktif'] = $suketMhsFilename;
+            } else {
+                $data['suket_mhs_aktif'] = $pengajuan->suket_mhs_aktif;
+            }
+            if ($request->hasFile('surat_kebersediaan')) {
+                Storage::delete('public/suratKebersediaan/' . $pengajuan->surat_kebersediaan);
+                $extsuratKebersediaan = $suratKebersediaan->extension();
+                $suratKebersediaanFilename = 'lampiran_' . $request->nama_mahasiswa . '_' . time() . '.' . $extsuratKebersediaan;
+                $suratKebersediaan->storeAs('public/suratKebersediaan/', $suratKebersediaanFilename);
+                $data['surat_kebersediaan'] = $suratKebersediaanFilename;
+            } else {
+                $data['surat_kebersediaan'] = $pengajuan->surat_kebersediaan;
+            }
+            if ($request->hasFile('suket_rekomendasi')) {
+                Storage::delete('public/suratRekomendasi/' . $pengajuan->suket_rekomendasi);
+                $extsuratRekomendasi = $suratRekomendasi->extension();
+                $suratRekomendasiFilename = 'lampiran_' . $request->nama_mahasiswa . '_' . time() . '.' . $extsuratRekomendasi;
+                $suratRekomendasi->storeAs('public/suratRekomendasi/', $suratRekomendasiFilename);
+                $data['suket_rekomendasi'] = $suratRekomendasiFilename;
+            } else {
+                $data['suket_rekomendasi'] = $pengajuan->suket_rekomendasi;
+            }
+            if ($request->hasFile('nilai_ipk')) {
+                Storage::delete('public/nilai/' . $pengajuan->nilai_ipk);
+                $extnilai = $nilai->extension();
+                $nilaiFilename = 'lampiran_' . $request->nama_mahasiswa . '_' . time() . '.' . $extnilai;
+                $nilai->storeAs('public/nilai/', $nilaiFilename);
+                $data['nilai_ipk'] = $nilaiFilename;
+            } else {
+                $data['nilai_ipk'] = $pengajuan->nilai_ipk;
             }
 
             $pengajuan->update($data);
         } catch (\Throwable $th) {
             return redirect()
                 ->back()
-                ->withErrors($th->getMessage());
+                ->withErrors('Aksi Gagal!');
         }
         $notification = [
             'alert-type' => 'success',
