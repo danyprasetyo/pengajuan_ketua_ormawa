@@ -197,10 +197,11 @@ class PengajuanController extends Controller
                 $data['photo'] = $pengajuan->photo;
             }
             if ($request->hasFile('sertifikat')) {
-                Storage::delete('public/sertifikat/' . $pengajuan->sertifikat);
+
+                Storage::delete('public/lampiran_mhs/'.$pengajuan->sertifikat);
                 $extSertifikat = $sertifikat->extension();
                 $sertifikatFilename = 'lampiran_' . $request->nama_mahasiswa . '_' . time() . '.' . $extSertifikat;
-                $sertifikat->storeAs('public/sertifikat/', $sertifikatFilename);
+                $sertifikat->storeAs('public/lampiran_mhs/', $sertifikatFilename);
 
                 $data['sertifikat'] = $sertifikatFilename;
                 Storage::delete('public/lampiran_mhs/'.$pengajuan->sertifikat);

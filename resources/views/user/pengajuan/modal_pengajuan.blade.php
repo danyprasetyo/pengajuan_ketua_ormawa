@@ -56,15 +56,12 @@
                         <span class="text-hint text-secondari">*3x4 background biru dengan kemeja biru.</span>
                     </div>
                     <div class="form-group mb-3">
-                        <label for="inputPassword">Pengajuan Menjadi Ketua Ormawa</label>
-                        <select name="ormawa_id" id="ormawa_id" class="form-control" onchange="ganti()">
-                            <option value="">--> Ormawa <-- </option>
-                                    @foreach ($ormawas as $ormawa)
-                            <option value="{{ $ormawa->id }}">{{ $ormawa->nama_ormawa }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div id="data_sertifikat">
+
+                        <label for="inputPassword">Lampiran berupa : Sertifikat, Photo KTM, Surat Pernyataan menjadi ketua, Scan Dokumen FHS IPK Min (2.80), Surat Rekomendasi oleh Ketua Prodi</label>
+                        <div id="serti"></div>
+                        <input class="form-control" id="inputPassword" name="sertifikat" type="file"
+                            placeholder="Sertifikat" />
+                        <span class="text-hint">*Lampiran disimpan dalam satu file pdf</span>
 
                     </div>
                     <div class="form-floating mb-3">

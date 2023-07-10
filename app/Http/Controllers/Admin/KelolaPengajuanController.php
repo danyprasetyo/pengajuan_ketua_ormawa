@@ -11,7 +11,7 @@ class KelolaPengajuanController extends Controller
 {
     public function pending()
     {
-        $data['pengajuans'] = Pengajuan::where('status_pengajuan', 2)
+        $data['pengajuans'] = Pengajuan::whereIn('status_pengajuan', [2,3])
             ->orderBy('created_at')
             ->get();
         return view('admin.pengajuan.pending')->with($data);
