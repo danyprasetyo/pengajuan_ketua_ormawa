@@ -59,8 +59,9 @@ class KelolaPengajuanController extends Controller
     {
         $id = $request->id;
         $data = Pengajuan::where('id', $id)->first();
+        // return view('admin.pengajuan.print', ['pengajuan' => $data]);
         $pdf = PDF::loadview('admin.pengajuan.print', ['pengajuan' => $data]);
-        // return $pdf->stream();
-        return $pdf->download('formulir_'.$data->nama_mahasiswa.'.pdf');
+        return $pdf->stream();
+        // return $pdf->download('formulir_'.$data->nama_mahasiswa.'.pdf');
     }
 }

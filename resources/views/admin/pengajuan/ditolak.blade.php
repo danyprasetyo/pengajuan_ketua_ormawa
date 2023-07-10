@@ -67,47 +67,4 @@
     </div>
     @include('admin.pengajuan.modal_pengajuan')
 @stop
-@push('js')
-    <script>
-function getDataPengajuan(id_pengajuan, id_modal) {
-            $('#pp').empty();
-            $('#serti').empty();
-            $('#ormawa').empty();
-            let id = id_pengajuan;
-            $.ajax({
-                type: "get",
-                url: `{{ url('dashboard/pengajuan/${id}') }}`,
-                dataType: 'json',
-                success: function(res) {
-                    $('#id_pengajuan').val(id);
-                    $(`#nama_mahasiswa`).val(res.nama_mahasiswa);
-                    $(`#npm`).val(res.npm);
-                    $(`#no_hp`).val(res.no_hp);
-                    $(`#alamat`).val(res.alamat);
-                    $(`#semester`).val(res.semester);
-                    $(`#video`).val(res.video);
-                    $(`#program_studi option[value="${res.program_studi}"]`).attr("selected", "selected").attr(
-                        'class', 'kapilih');
-                    $(`#ormawa`).val(res.ormawa.nama_ormawa)
-                    $("#pp").append(
-                        `<img src="{{ url('storage/photo_mhs/${res.photo}') }}" class="img-fluid mb-1" width="60%" alt="" srcset="">`
-                    );
-                    $("#serti").append(
-                        `<iframe src="{{ url('storage/lampiran_mhs/${res.sertifikat}') }}" class="mb-1" width="100%" height="500px"></iframe>`
-                    )
-                    $(`#labelModal`).text(`Formulir Pengajuan ${res.nama_mahasiswa}`);
-                    $(id_modal).modal('show');
-                },
-                error: function(err) {
-                    alert(err);
-                }
-            });
-        }
-        function persetujuan(dataId, formId, persetujuan, message) {
-            $('#status_pengajuan').val(persetujuan);
-            $('#id').val(dataId);
-
-            formConfirmationId(formId, message);
-        }
-    </script>
-@endpush
+@include('admin.pengajuan.js')
