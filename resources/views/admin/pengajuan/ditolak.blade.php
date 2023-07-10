@@ -53,8 +53,8 @@
                                             <button type="button"
                                                 onclick="getDataPengajuan('{{ $pengajuan->id }}','#modalPengajuan')"
                                                 class="btn btn-sm btn-info">Lihat</button>
-                                            <button type="button" class="btn btn-sm btn-success"
-                                                onclick="persetujuan('{{ $pengajuan->id }}','#formPersetujuan','1','Setujui pengajuan?')">Setujui</button>
+                                            {{-- <button type="button" class="btn btn-sm btn-success"
+                                                onclick="persetujuan('{{ $pengajuan->id }}','#formPersetujuan','1','Setujui pengajuan?')">Setujui</button> --}}
                                         </form>
                                     </td>
                                 </tr>

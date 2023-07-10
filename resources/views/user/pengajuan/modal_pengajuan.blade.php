@@ -56,7 +56,7 @@
                         <span class="text-hint text-secondari">*3x4 background biru dengan kemeja biru.</span>
                     </div>
                     <div class="form-group mb-3">
-                        <label for="inputPassword">Lampiran</label>
+                        <label for="inputPassword">Lampiran berupa : Sertifikat, Photo KTM, Surat Pernyataan menjadi ketua, Scan Dokumen FHS IPK Min (2.80), Surat Rekomendasi oleh Ketua Prodi</label>
                         <div id="serti"></div>
                         <input class="form-control" id="inputPassword" name="sertifikat" type="file"
                             placeholder="Sertifikat" />

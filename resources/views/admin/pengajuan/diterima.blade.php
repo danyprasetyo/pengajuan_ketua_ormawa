@@ -51,8 +51,8 @@
                                         <button type="button"
                                                 onclick="getDataPengajuan('{{ $pengajuan->id }}','#modalPengajuan')"
                                                 class="btn btn-sm btn-info">Lihat</button>
-                                        <button type="button" class="btn btn-sm btn-danger"
-                                            onclick="tolak({{ $pengajuan->id }})">Tolak</button>
+                                        {{-- <button type="button" class="btn btn-sm btn-danger"
+                                            onclick="tolak({{ $pengajuan->id }})">Tolak</button> --}}
                                     </form></td>
                                 </tr>
                             @endforeach

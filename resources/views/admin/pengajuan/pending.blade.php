@@ -54,6 +54,8 @@
                                                 onclick="persetujuan('{{ $pengajuan->id }}','#formPersetujuan','1','Setujui pengajuan?')">Setujui</button>
                                             <button type="button" class="btn btn-sm btn-danger"
                                                 onclick="tolak({{ $pengajuan->id }})">Tolak</button>
+                                            <button type="button" class="btn btn-sm btn-warning"
+                                                onclick="perbarui({{ $pengajuan->id }})">Perbarui</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -121,6 +123,28 @@
                 Swal.fire({
                     icon: 'error',
                     title: 'Alasan Penolakan Tidak Boleh Kosong!',
+                })
+            }
+        }
+        async function perbarui(idData) {
+            const {
+                value: text
+            } = await Swal.fire({
+                input: 'textarea',
+                inputLabel: 'Pesan Perbarui',
+                inputPlaceholder: 'Alasan Perbarui',
+                inputAttributes: {
+                    'aria-label': 'Type your message here'
+                },
+                showCancelButton: true
+            })
+            if (text) {
+                $("#keterangan").val(text);
+                persetujuan(idData, '#formPersetujuan', '3', 'Anda Yakin?')
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Deskripsi Tidak Boleh Kosong!',
                 })
             }
         }

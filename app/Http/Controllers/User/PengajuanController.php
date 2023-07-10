@@ -118,7 +118,7 @@ class PengajuanController extends Controller
         try {
             if ($request->hasFile('photo')) {
                 $extPhoto = $photo->extension();
-                $photoFilename = 'photo_' . $request->nama_mahasiswa . '_' . Carbon::now() . '.' . $extPhoto;
+                $photoFilename = 'photo_' . $request->nama_mahasiswa . '_' . time() . '.' . $extPhoto;
                 $photo->storeAs('public/photo_mhs/', $photoFilename);
                 $data['photo'] = $photoFilename;
                 Storage::delete('public/photo_mhs/'.$pengajuan->photo);
@@ -126,10 +126,10 @@ class PengajuanController extends Controller
                 $data['photo'] = $pengajuan->photo;
             }
             if ($request->hasFile('sertifikat')) {
-                Storage::delete('public/sertifikat_mhs/'.$pengajuan->sertifikat);
+                Storage::delete('public/lampiran_mhs/'.$pengajuan->sertifikat);
                 $extSertifikat = $sertifikat->extension();
-                $sertifikatFilename = 'sertifikat_' . $request->nama_mahasiswa . '_' . Carbon::now() . '.' . $extSertifikat;
-                $sertifikat->storeAs('public/sertifikat_mhs/', $sertifikatFilename);
+                $sertifikatFilename = 'lampiran_' . $request->nama_mahasiswa . '_' . time() . '.' . $extSertifikat;
+                $sertifikat->storeAs('public/lampiran_mhs/', $sertifikatFilename);
                 $data['sertifikat'] = $sertifikatFilename;
                 Storage::delete('public/lampiran_mhs/'.$pengajuan->sertifikat);
             } else {
